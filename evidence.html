@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Evidence Graph</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="report.html">Report</a>
+        <a href="forecast.html">Forecast</a>
+        <a href="dispatch.html">Dispatch</a>
+        <a href="ai-copilot.html">AI Copilot</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Phase 2 · Evidence graph</p>
+        <h1>One photo is a clue. A hotspot needs corroboration.</h1>
+        <p>PlumeGraph combines citizen evidence, local sensors, satellite priors, and wind consistency before municipal dispatch.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Current state</h2>
+          <div class="metric-row"><span>Stage</span><strong id="phaseStage">--</strong></div>
+          <div class="metric-row"><span>Confidence</span><strong id="phaseConfidence">--</strong></div>
+          <div class="metric-row"><span>Recommended asset</span><strong id="phaseAsset">--</strong></div>
+        </article>
+        <article class="product-card">
+          <h2>Evidence stack</h2>
+          <ul class="check-list">
+            <li>Citizen photo: smoke 91%, haze proxy 0.67</li>
+            <li>PMS7003: corrected PM2.5 212 ug/m3</li>
+            <li>FIRMS/VIIRS: thermal prior within 900 m</li>
+            <li>Wind: source upwind of school exposure cell</li>
+          </ul>
+        </article>
+        <article class="product-card wide">
+          <h2>Fake-report controls</h2>
+          <div class="pipeline">
+            <span>EXIF check</span>
+            <span>Duplicate hash</span>
+            <span>Reporter trust</span>
+            <span>Sensor match</span>
+            <span>Wind plausibility</span>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="plumegraph-core.js"></script>
+    <script src="plumegraph-pages.js"></script>
+  </body>
+</html>

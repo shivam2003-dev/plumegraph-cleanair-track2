@@ -6,6 +6,15 @@ const state = {
   completed: false,
   hindi: false,
   type: "garbage_fire",
+  trustScore: 0.82,
+  duplicateRisk: 0.03,
+  exifConfidence: 0.94,
+  smokeProbability: 0.91,
+  correctedPm25: 74,
+  fireDistanceMeters: 900,
+  windConsistent: false,
+  humidity: 64,
+  windSpeedKmph: 8,
 };
 
 const copy = {
@@ -108,24 +117,19 @@ function setHotspotCells(stage) {
 }
 
 function calculateConfidence() {
-  let score = 12;
-  if (state.report) score += 24;
-  if (state.sensor) score += 28;
-  if (state.satellite) score += 18;
-  if (state.report && state.sensor) score += 8;
-  if (state.sensor && state.satellite) score += 7;
-  if (state.completed) score -= 18;
-  return Math.max(0, Math.min(96, score));
+  return window.PlumeGraphCore.calculateConfidence({
+    ...state,
+    correctedPm25: state.sensor ? 212 : state.correctedPm25,
+    windConsistent: state.report && state.sensor,
+  });
 }
 
 function currentStage() {
-  const confidence = calculateConfidence();
-  const independentSources = [state.report, state.sensor, state.satellite].filter(Boolean).length;
-  if (state.completed) return "mitigated";
-  if (confidence >= 75 && independentSources >= 2) return "confirmed";
-  if (confidence >= 45 || independentSources >= 2) return "suspected";
-  if (state.report || state.sensor || state.satellite) return "watch";
-  return "clear";
+  return window.PlumeGraphCore.classifyStage({
+    ...state,
+    correctedPm25: state.sensor ? 212 : state.correctedPm25,
+    windConsistent: state.report && state.sensor,
+  });
 }
 
 function evidenceItems() {

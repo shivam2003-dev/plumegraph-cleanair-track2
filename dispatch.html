@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Dispatch</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="report.html">Report</a>
+        <a href="evidence.html">Evidence</a>
+        <a href="forecast.html">Forecast</a>
+        <a href="ai-copilot.html">AI Copilot</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Phase 2 · Municipal dispatch</p>
+        <h1>Route the right resource, then prove it worked.</h1>
+        <p>The differentiator is action accountability: asset assignment, SLA, before-reading, after-reading, and rebound watch.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Winning assignment</h2>
+          <div class="metric-row"><span>Asset</span><strong id="dispatchWinner">--</strong></div>
+          <p id="dispatchReason">--</p>
+        </article>
+        <article class="product-card">
+          <h2>Proof of action</h2>
+          <div class="metric-row"><span>Before</span><strong>212 PM2.5</strong></div>
+          <div class="metric-row"><span>After</span><strong>146 PM2.5</strong></div>
+          <div class="metric-row"><span>Result</span><strong>31% drop</strong></div>
+        </article>
+        <article class="product-card wide">
+          <h2>Municipal SLA timeline</h2>
+          <div class="pipeline">
+            <span>Confirm 14:18</span>
+            <span>Dispatch 14:20</span>
+            <span>Arrive 14:34</span>
+            <span>After-read 15:20</span>
+            <span>Closed 15:24</span>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="plumegraph-core.js"></script>
+    <script src="plumegraph-pages.js"></script>
+  </body>
+</html>

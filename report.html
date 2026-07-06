@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Report Intake</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="evidence.html">Evidence</a>
+        <a href="forecast.html">Forecast</a>
+        <a href="dispatch.html">Dispatch</a>
+        <a href="ai-copilot.html">AI Copilot</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Phase 1 · Citizen and field intake</p>
+        <h1>Report smoke, dust, or burning in under 20 seconds.</h1>
+        <p>Designed for cheap Android phones, low-connectivity wards, Hindi/regional notes, and municipal field inspectors.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Report form</h2>
+          <label class="field-label">Incident type</label>
+          <select>
+            <option>Garbage dump smoke</option>
+            <option>Construction dust</option>
+            <option>Traffic smog trap</option>
+            <option>Industrial plume</option>
+          </select>
+          <label class="field-label">Voice/text note</label>
+          <textarea class="text-area">कूड़े के ढेर से धुआं आ रहा है</textarea>
+          <button class="primary-button" type="button">Queue report</button>
+        </article>
+        <article class="product-card">
+          <h2>AI intake analysis</h2>
+          <div class="metric-row"><span>Trust score</span><strong id="reportTrust">--</strong></div>
+          <div class="metric-row"><span>Risk</span><strong id="reportRisk">--</strong></div>
+          <div class="metric-row"><span>Sync</span><strong id="reportQueue">--</strong></div>
+        </article>
+        <article class="product-card wide">
+          <h2>Optional Google Maps layer</h2>
+          <p>For security, the browser key is not committed. Paste a restricted referrer key for local demo only.</p>
+          <div class="map-key-row">
+            <input id="mapsKeyInput" type="password" placeholder="Paste restricted Google Maps browser key" />
+            <button id="mapsKeyButton" class="secondary-button" type="button">Use for session</button>
+          </div>
+          <div id="googleMap" class="google-map"></div>
+        </article>
+      </section>
+    </main>
+    <script src="plumegraph-core.js"></script>
+    <script src="plumegraph-pages.js"></script>
+  </body>
+</html>

@@ -32,6 +32,9 @@ http://127.0.0.1:5174/
 - `PROJECT_WRITEUP.md` / `write-up.html` - submission write-up
 - `PITCH_DECK.md` / `pitch-deck.html` - pitch deck
 - `ARCHITECTURE.md` - architecture diagram and data contracts
+- `PHASE.md` - current roadmap from selected prototype to pilot
+- `report.html`, `evidence.html`, `forecast.html`, `dispatch.html`, `ai-copilot.html` - Phase 1/2 product pages
+- `plumegraph-core.js` - tested hotspot, forecast, dispatch, and AI-summary logic
 - `.github/workflows/deploy-pages.yml` - GitHub Pages CI/CD
 
 ## Deployment
@@ -54,6 +57,7 @@ Submission pages:
 - Rendered architecture: `architecture.html`
 - Pitch deck: `pitch-deck.html`
 - Project write-up: `write-up.html`
+- Phase 1/2 product pages: `report.html`, `evidence.html`, `forecast.html`, `dispatch.html`, `ai-copilot.html`
 
 ## Google Cloud Pilot Path
 

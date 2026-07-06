@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Forecast Lab</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="report.html">Report</a>
+        <a href="evidence.html">Evidence</a>
+        <a href="dispatch.html">Dispatch</a>
+        <a href="ai-copilot.html">AI Copilot</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Phase 2 · 24-hour prediction</p>
+        <h1>Predict when the neighbourhood AQI spike will hit.</h1>
+        <p>XGBoost-style feature logic now, spatiotemporal graph model later. The demo is deterministic so judges can rely on it.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Normal evening</h2>
+          <div class="metric-row"><span>Forecast</span><strong id="forecastBase">--</strong></div>
+          <p>Traffic and background PM, no corroborated fire signal.</p>
+        </article>
+        <article class="product-card">
+          <h2>Confirmed dump fire</h2>
+          <div class="metric-row"><span>Forecast</span><strong id="forecastHotspot">--</strong></div>
+          <p>Citizen smoke reports, PM spike, FIRMS prior, low wind.</p>
+        </article>
+        <article class="product-card">
+          <h2>Rain relief</h2>
+          <div class="metric-row"><span>Forecast</span><strong id="forecastRain">--</strong></div>
+          <p>Rain and higher wind reduce sustained spike risk.</p>
+        </article>
+      </section>
+    </main>
+    <script src="plumegraph-core.js"></script>
+    <script src="plumegraph-pages.js"></script>
+  </body>
+</html>
