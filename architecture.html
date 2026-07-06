@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Architecture</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .arch-page {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: 24px 18px 70px;
+      }
+
+      .arch-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .arch-nav a {
+        color: var(--blue);
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .arch-hero {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        box-shadow: var(--shadow);
+        padding: 34px;
+        margin-bottom: 18px;
+      }
+
+      .arch-hero h1 {
+        margin-top: 8px;
+        font-size: clamp(2.25rem, 5vw, 4.4rem);
+      }
+
+      .arch-hero p {
+        max-width: 920px;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 1.12rem;
+        line-height: 1.55;
+      }
+
+      .architecture-board {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(90deg, rgba(47, 111, 159, 0.08), transparent 32%),
+          linear-gradient(180deg, white, #f8fafb);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        overflow-x: auto;
+      }
+
+      .arch-lanes {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(190px, 1fr));
+        gap: 14px;
+        min-width: 1040px;
+      }
+
+      .lane {
+        display: grid;
+        align-content: start;
+        gap: 12px;
+      }
+
+      .lane-title {
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 8px;
+        font-size: 0.82rem;
+        font-weight: 950;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .arch-node {
+        position: relative;
+        min-height: 96px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        padding: 14px;
+      }
+
+      .arch-node::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -19px;
+        z-index: 2;
+        color: var(--blue);
+        font-size: 1.4rem;
+        font-weight: 950;
+        transform: translateY(-50%);
+      }
+
+      .lane:last-child .arch-node::after {
+        display: none;
+      }
+
+      .arch-node strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .arch-node span {
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+
+      .arch-node.hot {
+        border-color: rgba(201, 79, 69, 0.45);
+        background: #fff8f7;
+      }
+
+      .arch-node.cloud {
+        border-color: rgba(47, 111, 159, 0.38);
+        background: #f6fbff;
+      }
+
+      .arch-node.action {
+        border-color: rgba(45, 138, 104, 0.42);
+        background: #f4fbf7;
+      }
+
+      .architecture-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .detail-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      .detail-panel h2 {
+        margin-bottom: 12px;
+        font-size: 1.25rem;
+      }
+
+      .detail-panel p,
+      .detail-panel li {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .detail-panel ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+
+      .contract-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .contract-grid div {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfc;
+        padding: 12px;
+      }
+
+      .contract-grid strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .contract-grid code {
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: normal;
+      }
+
+      @media (max-width: 850px) {
+        .architecture-details,
+        .contract-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .arch-nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="arch-page">
+      <nav class="arch-nav">
+        <a href="./">Prototype</a>
+        <div class="submission-links">
+          <a href="solution.html">Full solution</a>
+          <a href="pitch-deck.html">Pitch deck</a>
+          <a href="write-up.html">Write-up</a>
+          <a href="https://github.com/shivam2003-dev/plumegraph-cleanair-track2">Repo</a>
+        </div>
+      </nav>
+
+      <section class="arch-hero">
+        <p class="eyebrow">Rendered architecture</p>
+        <h1>End-to-end pollution response architecture</h1>
+        <p>
+          This is the browser version judges should see: citizen reports, sensors, satellite/weather ingestion,
+          AI fusion, 24-hour forecasting, municipal dispatch, and proof-of-action reporting in one deployable flow.
+        </p>
+      </section>
+
+      <section class="architecture-board" aria-label="PlumeGraph system architecture diagram">
+        <div class="arch-lanes">
+          <div class="lane">
+            <div class="lane-title">1. Evidence Capture</div>
+            <div class="arch-node hot">
+              <strong>Citizen Android / Web</strong>
+              <span>Smoke/dust photo, GPS, timestamp, Hindi/regional note, offline queue.</span>
+            </div>
+            <div class="arch-node hot">
+              <strong>PMS7003 / SDS011</strong>
+              <span>Low-cost PM2.5/PM10 readings with humidity and device-health metadata.</span>
+            </div>
+            <div class="arch-node hot">
+              <strong>Satellite + Weather</strong>
+              <span>NASA FIRMS, Sentinel-5P, MODIS AOD, IMD/ERA5/Open-Meteo wind.</span>
+            </div>
+          </div>
+
+          <div class="lane">
+            <div class="lane-title">2. Google Cloud Ingestion</div>
+            <div class="arch-node cloud">
+              <strong>Cloud Run Civic API</strong>
+              <span>Receives citizen forms, validates location, stores metadata, emits event.</span>
+            </div>
+            <div class="arch-node cloud">
+              <strong>Pub/Sub Event Bus</strong>
+              <span>Streams reports, sensor readings, satellite priors, forecast jobs, dispatch updates.</span>
+            </div>
+            <div class="arch-node cloud">
+              <strong>Cloud Storage</strong>
+              <span>Stores original and privacy-blurred report photos.</span>
+            </div>
+          </div>
+
+          <div class="lane">
+            <div class="lane-title">3. AI Fusion</div>
+            <div class="arch-node">
+              <strong>Vertex AI Vision</strong>
+              <span>Smoke/dust/cause classifier, haze proxy, EXIF confidence, duplicate risk.</span>
+            </div>
+            <div class="arch-node">
+              <strong>Fusion Service</strong>
+              <span>Temporal decay, trust scoring, wind-aware interpolation, cross-source corroboration.</span>
+            </div>
+            <div class="arch-node">
+              <strong>Cloud SQL + PostGIS</strong>
+              <span>Stores ward grid cells, evidence graph, hotspot states, and dispatch history.</span>
+            </div>
+          </div>
+
+          <div class="lane">
+            <div class="lane-title">4. Prediction + Decision</div>
+            <div class="arch-node">
+              <strong>24-hour AQI Forecast</strong>
+              <span>XGBoost for hackathon, spatiotemporal GNN later; predicts peak AQI and spike window.</span>
+            </div>
+            <div class="arch-node">
+              <strong>Hotspot State Machine</strong>
+              <span>Clear → Watch → Suspected → Confirmed → Mitigated.</span>
+            </div>
+            <div class="arch-node">
+              <strong>Dispatch Optimizer</strong>
+              <span>Ranks mist cannons, cleanup crews, inspectors by ETA, severity, and exposed population.</span>
+            </div>
+          </div>
+
+          <div class="lane">
+            <div class="lane-title">5. Municipal Action</div>
+            <div class="arch-node action">
+              <strong>ICCC / Ward Dashboard</strong>
+              <span>Evidence cards, plume map, forecast, dispatch recommendation, SLA timer.</span>
+            </div>
+            <div class="arch-node action">
+              <strong>FCM / SMS / WhatsApp</strong>
+              <span>Alerts ward officers, solid-waste teams, water-mist units, enforcement teams.</span>
+            </div>
+            <div class="arch-node action">
+              <strong>Proof Loop + BigQuery</strong>
+              <span>Before/after PM, visual haze, action closure, impact reporting, repeat hotspot analytics.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture-details">
+        <article class="detail-panel">
+          <h2>Hotspot confirmation logic</h2>
+          <p>A single citizen photo can create Watch, but Confirmed requires at least two independent source families and wind/geospatial plausibility.</p>
+          <ul>
+            <li>Photo evidence: smoke, dust, haze, EXIF, duplicate risk.</li>
+            <li>Sensor evidence: corrected PM2.5/PM10 anomaly.</li>
+            <li>Satellite/fire prior: FIRMS thermal anomaly or regional aerosol prior.</li>
+            <li>Weather: downwind consistency and low-wind spike risk.</li>
+          </ul>
+        </article>
+
+        <article class="detail-panel">
+          <h2>Deployment path</h2>
+          <p>The hackathon site is static and deployed through GitHub Actions. A real city pilot keeps the same product flow and swaps simulated services for Google Cloud components.</p>
+          <ul>
+            <li>Now: GitHub Pages prototype with deterministic demo data.</li>
+            <li>Pilot: Cloud Run, Pub/Sub, Cloud SQL/PostGIS, Cloud Storage, Vertex AI.</li>
+            <li>Scale: ICCC integration, municipal fleet routing, BigQuery impact reports.</li>
+          </ul>
+        </article>
+
+        <article class="detail-panel" style="grid-column: 1 / -1">
+          <h2>Core data contracts</h2>
+          <div class="contract-grid">
+            <div><strong>Citizen report</strong><code>report_id, user_hash, lat, lon, timestamp, media_uri, language, note</code></div>
+            <div><strong>Image evidence</strong><code>smoke_probability, haze_score, exif_confidence, duplicate_risk</code></div>
+            <div><strong>Sensor reading</strong><code>sensor_id, raw_pm25, corrected_pm25, pm10, humidity, device_health</code></div>
+            <div><strong>Hotspot cell</strong><code>state, confidence, cause, forecast_peak_aqi, recommended_action</code></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

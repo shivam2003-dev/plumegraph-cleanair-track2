@@ -48,6 +48,13 @@ Live URL:
 https://shivam2003-dev.github.io/plumegraph-cleanair-track2/
 ```
 
+Submission pages:
+
+- Full solution: `solution.html`
+- Rendered architecture: `architecture.html`
+- Pitch deck: `pitch-deck.html`
+- Project write-up: `write-up.html`
+
 ## Google Cloud Pilot Path
 
 The prototype is static for hackathon reliability. The city-pilot architecture maps to Google Cloud:

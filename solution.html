@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Full Solution</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .solution-page {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 24px 18px 70px;
+      }
+
+      .solution-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .solution-nav a {
+        color: var(--blue);
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .solution-hero,
+      .solution-section,
+      .flow-step {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        box-shadow: var(--shadow);
+      }
+
+      .solution-hero {
+        padding: 38px;
+        margin-bottom: 18px;
+      }
+
+      .solution-hero h1 {
+        margin-top: 8px;
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+      }
+
+      .solution-hero p {
+        max-width: 920px;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 1.12rem;
+        line-height: 1.55;
+      }
+
+      .score-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .score-grid div {
+        min-height: 100px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfc;
+        padding: 14px;
+      }
+
+      .score-grid strong {
+        display: block;
+        color: var(--blue);
+        font-size: 1.65rem;
+      }
+
+      .score-grid span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .solution-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .solution-section {
+        padding: 24px;
+      }
+
+      .solution-section.wide {
+        grid-column: 1 / -1;
+      }
+
+      .solution-section h2 {
+        margin-bottom: 12px;
+        font-size: 1.32rem;
+      }
+
+      .solution-section p,
+      .solution-section li {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .solution-section ul,
+      .solution-section ol {
+        margin: 10px 0 0;
+        padding-left: 20px;
+      }
+
+      .end-flow {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .flow-step {
+        min-height: 170px;
+        box-shadow: none;
+        padding: 16px;
+      }
+
+      .flow-step b {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--ink);
+        color: white;
+        margin-bottom: 12px;
+      }
+
+      .flow-step strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .flow-step span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      .tech-table {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr 1.2fr;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 14px;
+      }
+
+      .tech-table div {
+        border-bottom: 1px solid var(--line);
+        padding: 12px;
+      }
+
+      .tech-table div:nth-last-child(-n + 3) {
+        border-bottom: 0;
+      }
+
+      .tech-table .head {
+        background: var(--ink);
+        color: white;
+        font-weight: 900;
+      }
+
+      @media (max-width: 900px) {
+        .solution-layout,
+        .score-grid,
+        .end-flow,
+        .tech-table {
+          grid-template-columns: 1fr;
+        }
+
+        .solution-nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .tech-table div {
+          border-bottom: 1px solid var(--line) !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="solution-page">
+      <nav class="solution-nav">
+        <a href="./">Prototype</a>
+        <div class="submission-links">
+          <a href="architecture.html">Architecture</a>
+          <a href="pitch-deck.html">Pitch deck</a>
+          <a href="write-up.html">Write-up</a>
+          <a href="https://github.com/shivam2003-dev/plumegraph-cleanair-track2">Repo</a>
+        </div>
+      </nav>
+
+      <section class="solution-hero">
+        <p class="eyebrow">Full end-to-end solution</p>
+        <h1>PlumeGraph detects, predicts, dispatches, and proves.</h1>
+        <p>
+          The challenge asks for a neighbourhood pollution map using citizen photos, local sensors, and satellite imagery.
+          PlumeGraph implements that core flow and adds the missing civic-tech layer: municipal dispatch and proof that action worked.
+        </p>
+        <div class="score-grid">
+          <div><strong>20%</strong><span>Problem-solution fit</span></div>
+          <div><strong>25%</strong><span>AI execution</span></div>
+          <div><strong>25%</strong><span>Deployability</span></div>
+          <div><strong>15%</strong><span>Inclusivity</span></div>
+          <div><strong>10%</strong><span>Impact</span></div>
+          <div><strong>5%</strong><span>Clarity</span></div>
+        </div>
+      </section>
+
+      <section class="solution-layout">
+        <article class="solution-section wide">
+          <h2>End-to-end working flow</h2>
+          <div class="end-flow">
+            <div class="flow-step"><b>1</b><strong>Citizen evidence</strong><span>Smoke/dust photo with GPS, timestamp, Hindi note, offline queue.</span></div>
+            <div class="flow-step"><b>2</b><strong>Sensor anomaly</strong><span>PMS7003/SDS011 PM2.5 spike corrected for humidity and local baseline.</span></div>
+            <div class="flow-step"><b>3</b><strong>Satellite prior</strong><span>NASA FIRMS fire signal plus Sentinel/MODIS background pollution context.</span></div>
+            <div class="flow-step"><b>4</b><strong>Forecast</strong><span>24-hour AQI peak and spike window using weather, lags, land-use, and evidence scores.</span></div>
+            <div class="flow-step"><b>5</b><strong>Action proof</strong><span>Dispatch mist cannon/crew and record before/after PM and haze reduction.</span></div>
+          </div>
+        </article>
+
+        <article class="solution-section">
+          <h2>What is novel</h2>
+          <ul>
+            <li>Citizen photos act as soft visual PM sensors through smoke, dust, and haze estimation.</li>
+            <li>Hotspots require cross-source evidence instead of trusting one viral complaint.</li>
+            <li>The map predicts plume movement and AQI spike timing, not just current heat.</li>
+            <li>Municipal action is closed with before/after proof and SLA history.</li>
+          </ul>
+        </article>
+
+        <article class="solution-section">
+          <h2>Why it wins</h2>
+          <ul>
+            <li>Directly addresses the problem statement.</li>
+            <li>AI is visible in the workflow and explains each decision.</li>
+            <li>Runs publicly on GitHub Pages through CI/CD.</li>
+            <li>Has a credible Google Cloud path for real deployment.</li>
+          </ul>
+        </article>
+
+        <article class="solution-section wide">
+          <h2>Technology choices</h2>
+          <div class="tech-table">
+            <div class="head">Layer</div>
+            <div class="head">Hackathon prototype</div>
+            <div class="head">City pilot</div>
+            <div>Frontend</div>
+            <div>HTML, CSS, JavaScript, GitHub Pages</div>
+            <div>React/Next.js dashboard embedded in ICCC</div>
+            <div>Civic API</div>
+            <div>Simulated state machine in browser</div>
+            <div>Spring Boot on Cloud Run</div>
+            <div>ML</div>
+            <div>Deterministic image/sensor/satellite scenario + charted forecast</div>
+            <div>Vertex AI image model + XGBoost/LightGBM + PostGIS fusion</div>
+            <div>Data</div>
+            <div>Seeded demo scenario for reliability</div>
+            <div>OpenAQ/CPCB, NASA FIRMS, Sentinel-5P, MODIS AOD, IMD/ERA5</div>
+            <div>Deployment</div>
+            <div>GitHub Actions CI/CD to GitHub Pages</div>
+            <div>Cloud Run, Pub/Sub, Cloud SQL/PostGIS, BigQuery, FCM</div>
+          </div>
+        </article>
+
+        <article class="solution-section">
+          <h2>Demo script</h2>
+          <ol>
+            <li>Open the prototype and show the ward grid is initially Clear.</li>
+            <li>Click Run dump-fire scenario.</li>
+            <li>Point to photo evidence, PM2.5 spike, FIRMS prior, and wind consistency.</li>
+            <li>Show AQI peak prediction and exposed population.</li>
+            <li>Show mist cannon + cleanup crew recommendation.</li>
+            <li>Click Record after-reading to close the proof loop.</li>
+          </ol>
+        </article>
+
+        <article class="solution-section">
+          <h2>Submission checklist</h2>
+          <ul>
+            <li>Working prototype: live GitHub Pages dashboard.</li>
+            <li>Code repository: public GitHub repo with README.</li>
+            <li>Pitch deck: browser deck and Markdown source.</li>
+            <li>Project write-up: web page and Markdown source.</li>
+            <li>Architecture: rendered web diagram plus technical Markdown.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
