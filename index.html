@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph | CleanAir & Clear Streets</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23172026'/%3E%3Cpath d='M14 42c8-17 18-26 36-20-4 5-9 8-15 10 5 1 9 4 12 8-12 6-23 5-33 2Z' fill='%232d8a68'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Code for Communities · Track 2</p>
+          <h1>PlumeGraph</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="status-pill" id="syncStatus">
+            <span class="pulse"></span>
+            Live fusion
+          </div>
+          <button class="icon-button" id="langToggle" type="button" title="Toggle Hindi labels">अ/En</button>
+          <button class="primary-button" id="runScenario" type="button">Run dump-fire scenario</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="map-panel" aria-label="Neighbourhood pollution map">
+          <div class="map-toolbar">
+            <div>
+              <h2 id="wardTitle">Ward 42 · East Delhi demo grid</h2>
+              <p id="wardMeta">100 m operational cells · wind-aware evidence fusion · mock ICCC feed</p>
+            </div>
+            <div class="legend" aria-label="Map legend">
+              <span><i class="legend-dot watch"></i> Watch</span>
+              <span><i class="legend-dot suspected"></i> Suspected</span>
+              <span><i class="legend-dot confirmed"></i> Confirmed</span>
+            </div>
+          </div>
+
+          <div class="city-map" id="cityMap">
+            <div class="north-label">N</div>
+            <div class="wind-ribbon" id="windRibbon">
+              <span>Wind 8 km/h NE → SW</span>
+            </div>
+            <div class="road arterial"></div>
+            <div class="road ring"></div>
+            <div class="road market"></div>
+            <div class="landmark dump">Dump edge</div>
+            <div class="landmark school">School</div>
+            <div class="landmark hospital">Clinic</div>
+            <div class="asset-marker mist" id="assetMist">MC-03</div>
+            <div class="asset-marker crew" id="assetCrew">SW-12</div>
+            <div class="plume" id="plumeLayer"></div>
+            <div class="grid-layer" id="gridLayer"></div>
+            <div class="sensor-marker" id="sensorA">
+              <span>PMS7003</span>
+              <strong id="sensorReading">PM2.5 74</strong>
+            </div>
+            <div class="report-marker hidden" id="reportMarker">Photo report</div>
+          </div>
+        </section>
+
+        <aside class="control-panel">
+          <section class="panel-block">
+            <div class="section-heading">
+              <h2>Citizen Evidence</h2>
+              <span id="offlineBadge">Offline queue: 0</span>
+            </div>
+            <label class="field-label" for="reportType">Report type</label>
+            <select id="reportType">
+              <option value="garbage_fire">Garbage dump smoke</option>
+              <option value="construction_dust">Construction dust</option>
+              <option value="traffic_smog">Traffic smog trap</option>
+              <option value="industrial_plume">Industrial plume</option>
+            </select>
+            <div class="upload-box" id="uploadBox">
+              <div class="photo-sample"></div>
+              <div>
+                <strong id="uploadTitle">Smoke photo ready</strong>
+                <p id="uploadText">EXIF ok · geohash 28.626,77.312 · Hindi note detected</p>
+              </div>
+            </div>
+            <button class="secondary-button" id="submitReport" type="button">Upload citizen report</button>
+          </section>
+
+          <section class="panel-block">
+            <div class="section-heading">
+              <h2>Evidence Graph</h2>
+              <span id="hotspotState">Clear</span>
+            </div>
+            <div class="score-ring" aria-label="Hotspot confidence">
+              <div>
+                <strong id="confidenceScore">12%</strong>
+                <span>confidence</span>
+              </div>
+            </div>
+            <ul class="evidence-list" id="evidenceList">
+              <li><span></span>No citizen reports yet</li>
+              <li><span></span>Sensor baseline stable</li>
+              <li><span></span>No fire prior active</li>
+            </ul>
+            <div class="button-row">
+              <button class="secondary-button" id="sensorSpike" type="button">Simulate sensor spike</button>
+              <button class="secondary-button" id="satelliteFire" type="button">Add FIRMS prior</button>
+            </div>
+          </section>
+        </aside>
+
+        <section class="forecast-panel">
+          <div class="section-heading">
+            <div>
+              <h2>24-hour AQI Spike Forecast</h2>
+              <p>XGBoost hackathon model · graph-smoothed over downwind cells</p>
+            </div>
+            <span id="peakBadge">Peak AQI 162</span>
+          </div>
+          <canvas id="forecastChart" width="760" height="210" aria-label="AQI forecast chart"></canvas>
+          <div class="reason-grid">
+            <div>
+              <span>Top driver</span>
+              <strong id="driverOne">background PM + evening traffic</strong>
+            </div>
+            <div>
+              <span>Spike window</span>
+              <strong id="spikeWindow">20:00-22:00</strong>
+            </div>
+            <div>
+              <span>Exposed population</span>
+              <strong id="exposedPop">2,100</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="dispatch-panel">
+          <div class="section-heading">
+            <div>
+              <h2>Municipal Action Layer</h2>
+              <p>Route by cause, assign nearest asset, prove intervention impact</p>
+            </div>
+            <span id="slaBadge">SLA not started</span>
+          </div>
+          <div class="dispatch-grid">
+            <div class="dispatch-card">
+              <span>Recommended asset</span>
+              <strong id="assetRecommendation">Stand by</strong>
+              <p id="assetReason">Awaiting confirmed hotspot.</p>
+            </div>
+            <div class="dispatch-card">
+              <span>Before / after PM2.5</span>
+              <strong id="proofReading">74 → pending</strong>
+              <p id="proofText">Intervention proof appears after dispatch.</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="primary-button" id="dispatchAsset" type="button">Dispatch resource</button>
+            <button class="secondary-button" id="completeAction" type="button">Record after-reading</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
