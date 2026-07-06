@@ -61,6 +61,89 @@ const cityMap = document.querySelector("#cityMap");
 const scoreRing = document.querySelector(".score-ring");
 const forecastCanvas = document.querySelector("#forecastChart");
 const ctx = forecastCanvas.getContext("2d");
+let leafletRefs = null;
+
+function initRealMap() {
+  const mapEl = document.querySelector("#realMap");
+  if (!mapEl || !window.L) return;
+
+  const center = [28.6267, 77.3182];
+  const map = L.map(mapEl, {
+    zoomControl: false,
+    attributionControl: true,
+    scrollWheelZoom: false,
+    dragging: true,
+    doubleClickZoom: false,
+  }).setView(center, 14);
+
+  L.control.zoom({ position: "bottomright" }).addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  const wardBounds = [
+    [28.638, 77.295],
+    [28.638, 77.342],
+    [28.607, 77.342],
+    [28.607, 77.295],
+  ];
+  L.polygon(wardBounds, {
+    color: "#1c78a5",
+    weight: 2,
+    opacity: 0.58,
+    fillColor: "#dff4f6",
+    fillOpacity: 0.1,
+  }).addTo(map);
+
+  const hotspot = L.circle([28.6314, 77.3275], {
+    radius: 650,
+    color: "#c98519",
+    fillColor: "#c98519",
+    fillOpacity: 0.12,
+    weight: 2,
+    opacity: 0.7,
+  }).addTo(map);
+
+  const plume = L.polygon(
+    [
+      [28.632, 77.326],
+      [28.626, 77.318],
+      [28.620, 77.306],
+      [28.616, 77.299],
+      [28.623, 77.301],
+      [28.629, 77.315],
+    ],
+    {
+      color: "#c14d3f",
+      weight: 1,
+      opacity: 0,
+      fillColor: "#c14d3f",
+      fillOpacity: 0,
+    },
+  ).addTo(map);
+
+  function divIcon(className, label) {
+    return L.divIcon({
+      className: `leaflet-op-marker ${className}`,
+      html: label,
+      iconSize: [76, 30],
+      iconAnchor: [38, 15],
+    });
+  }
+
+  const markers = {
+    dump: L.marker([28.6314, 77.3275], { icon: divIcon("dump", "Dump edge") }).addTo(map),
+    school: L.marker([28.6177, 77.312], { icon: divIcon("school", "School") }).addTo(map),
+    clinic: L.marker([28.626, 77.304], { icon: divIcon("clinic", "Clinic") }).addTo(map),
+    sensor: L.marker([28.6235, 77.318], { icon: divIcon("sensor", "PMS7003<br>PM2.5 74") }).addTo(map),
+    mist: L.marker([28.6125, 77.3005], { icon: divIcon("asset", "MC-03") }).addTo(map),
+    crew: L.marker([28.6332, 77.3008], { icon: divIcon("asset", "SW-12") }).addTo(map),
+    report: L.marker([28.6308, 77.3268], { icon: divIcon("report", "Photo report") }),
+  };
+
+  leafletRefs = { map, hotspot, plume, markers };
+}
 
 function buildGrid() {
   gridLayer.innerHTML = "";
@@ -192,10 +275,38 @@ function updateEvidence() {
   document.querySelector("#sensorA").classList.toggle("hot", state.sensor);
   document.querySelector("#sensorReading").textContent = state.sensor ? "PM2.5 212" : "PM2.5 74";
   document.querySelector("#plumeLayer").classList.toggle("active", stage === "confirmed" || stage === "mitigated");
+  updateLeafletOverlays(stage);
 
   setHotspotCells(stage === "mitigated" ? "watch" : stage);
   updateForecast(stage);
   updateDispatch(stage);
+}
+
+function updateLeafletOverlays(stage) {
+  if (!leafletRefs) return;
+  const { hotspot, plume, markers, map } = leafletRefs;
+  markers.sensor.setIcon(
+    L.divIcon({
+      className: `leaflet-op-marker sensor ${state.sensor ? "hot" : ""}`,
+      html: `PMS7003<br>${state.sensor ? "PM2.5 212" : "PM2.5 74"}`,
+      iconSize: [82, 36],
+      iconAnchor: [41, 18],
+    }),
+  );
+
+  if (state.report && !map.hasLayer(markers.report)) markers.report.addTo(map);
+  if (!state.report && map.hasLayer(markers.report)) markers.report.removeFrom(map);
+
+  const confirmed = stage === "confirmed" || stage === "mitigated";
+  hotspot.setStyle({
+    color: confirmed ? "#c14d3f" : stage === "suspected" ? "#d76332" : "#c98519",
+    fillColor: confirmed ? "#c14d3f" : stage === "suspected" ? "#d76332" : "#c98519",
+    fillOpacity: confirmed ? 0.22 : 0.12,
+  });
+  plume.setStyle({
+    opacity: confirmed ? 0.62 : 0,
+    fillOpacity: confirmed ? 0.2 : 0,
+  });
 }
 
 function drawForecast(values, color) {
@@ -390,5 +501,6 @@ document.querySelector("#langToggle").addEventListener("click", () => {
   applyLanguage();
 });
 
+initRealMap();
 buildGrid();
 updateEvidence();

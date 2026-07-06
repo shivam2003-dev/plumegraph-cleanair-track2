@@ -33,6 +33,89 @@ body {
     sans-serif;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(238, 247, 246, 0.3), rgba(238, 247, 246, 0.9) 72%),
+    url("assets/clean-air-watermark.png") center top / cover no-repeat;
+  opacity: 0.46;
+  transform: scale(1.02);
+  animation: watermarkDrift 28s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 68% 30%, rgba(193, 77, 63, 0.08), transparent 17%),
+    radial-gradient(circle at 16% 74%, rgba(28, 120, 165, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(238, 247, 246, 0.88));
+  pointer-events: none;
+}
+
+@keyframes watermarkDrift {
+  from {
+    background-position: center top;
+    filter: saturate(0.96) brightness(1.02);
+  }
+  to {
+    background-position: center 18px;
+    filter: saturate(1.05) brightness(1);
+  }
+}
+
+@keyframes softRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes plumeBreathe {
+  0% {
+    transform: rotate(23deg) scale(0.98);
+    filter: blur(2px);
+  }
+  50% {
+    transform: rotate(25deg) scale(1.08);
+    filter: blur(3.5px);
+  }
+  100% {
+    transform: rotate(23deg) scale(1);
+    filter: blur(2px);
+  }
+}
+
+@keyframes sensorPulse {
+  0%,
+  100% {
+    box-shadow: 0 12px 26px rgba(18, 48, 58, 0.22), 0 0 0 0 rgba(193, 77, 63, 0.22);
+  }
+  50% {
+    box-shadow: 0 12px 26px rgba(18, 48, 58, 0.22), 0 0 0 10px rgba(193, 77, 63, 0);
+  }
+}
+
+@keyframes roadMist {
+  from {
+    opacity: 0.25;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateX(18px);
+  }
+}
+
 button,
 select {
   font: inherit;
@@ -45,6 +128,7 @@ button {
 .app-shell {
   min-height: 100vh;
   padding: 18px;
+  animation: softRise 520ms ease both;
 }
 
 .topbar {
@@ -61,6 +145,7 @@ button {
     linear-gradient(180deg, transparent, rgba(228, 245, 234, 0.34));
   box-shadow: var(--shadow);
   padding: 14px 16px;
+  backdrop-filter: blur(12px);
 }
 
 .eyebrow {
@@ -186,6 +271,19 @@ h2 {
   margin: 0 auto;
 }
 
+.workspace > *,
+.product-card,
+.page-hero,
+.solution-hero,
+.solution-section,
+.arch-hero,
+.architecture-board,
+.detail-panel,
+.doc-hero,
+.doc-section {
+  animation: softRise 560ms ease both;
+}
+
 .map-panel,
 .control-panel,
 .forecast-panel,
@@ -197,6 +295,7 @@ h2 {
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 253, 251, 0.96)),
     var(--panel);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
 .map-panel {
@@ -271,14 +370,87 @@ h2 {
     linear-gradient(180deg, #e6f6f7, #eef3ea 54%, #eee6d5);
 }
 
+.leaflet-map {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #dff4f6;
+  font: inherit;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px;
+}
+
+.leaflet-op-marker {
+  display: grid;
+  min-width: max-content;
+  min-height: 30px;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 950;
+  line-height: 1.1;
+  padding: 6px 9px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(18, 48, 58, 0.22);
+}
+
+.leaflet-op-marker.dump {
+  border-color: #7d4d2d;
+  background: #7d4d2d;
+  color: white;
+}
+
+.leaflet-op-marker.school {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: white;
+}
+
+.leaflet-op-marker.clinic {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: white;
+}
+
+.leaflet-op-marker.sensor {
+  border-color: var(--green);
+}
+
+.leaflet-op-marker.sensor.hot {
+  border-color: var(--red);
+  animation: sensorPulse 1.8s ease-in-out infinite;
+}
+
+.leaflet-op-marker.asset {
+  background: #f9fcfb;
+}
+
+.leaflet-op-marker.report {
+  border-color: var(--amber);
+  background: var(--amber);
+  color: white;
+}
+
 .city-map::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image:
     linear-gradient(rgba(18, 48, 58, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(18, 48, 58, 0.06) 1px, transparent 1px);
   background-size: 68px 68px;
+  pointer-events: none;
 }
 
 .city-map::after {
@@ -286,7 +458,7 @@ h2 {
   position: absolute;
   left: 16px;
   bottom: 14px;
-  z-index: 6;
+  z-index: 8;
   border: 1px solid rgba(18, 48, 58, 0.12);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.82);
@@ -324,47 +496,17 @@ h2 {
   padding: 9px 12px;
 }
 
-.road {
-  position: absolute;
-  z-index: 1;
-  border-radius: 3px;
-  background: var(--street);
-  box-shadow: 0 0 0 1px rgba(18, 48, 58, 0.08), inset 0 0 0 2px #d6c894;
-}
-
-.road.arterial {
-  left: -8%;
-  top: 47%;
-  width: 116%;
-  height: 34px;
-  transform: rotate(-10deg);
-}
-
-.road.ring {
-  left: 26%;
-  top: -12%;
-  width: 34px;
-  height: 122%;
-  transform: rotate(18deg);
-}
-
-.road.market {
-  left: 12%;
-  top: 73%;
-  width: 80%;
-  height: 24px;
-  transform: rotate(4deg);
-}
-
 .landmark {
   position: absolute;
-  z-index: 4;
+  z-index: 7;
   border-radius: 6px;
   color: white;
   font-size: 0.78rem;
   font-weight: 900;
   padding: 7px 9px;
   box-shadow: 0 8px 20px rgba(23, 32, 38, 0.18);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .landmark.dump {
@@ -389,7 +531,7 @@ h2 {
 .sensor-marker,
 .report-marker {
   position: absolute;
-  z-index: 7;
+  z-index: 9;
   border-radius: 6px;
   box-shadow: 0 12px 26px rgba(23, 32, 38, 0.22);
   font-size: 0.76rem;
@@ -403,6 +545,8 @@ h2 {
   height: 32px;
   background: white;
   border: 2px solid var(--ink);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .asset-marker.mist {
@@ -435,10 +579,13 @@ h2 {
   background: #ffffff;
   border: 2px solid var(--green);
   padding: 8px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .sensor-marker.hot {
   border-color: var(--red);
+  animation: sensorPulse 1.8s ease-in-out infinite;
 }
 
 .sensor-marker span {
@@ -452,6 +599,8 @@ h2 {
   background: var(--amber);
   color: white;
   padding: 8px 10px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hidden {
@@ -462,7 +611,7 @@ h2 {
   position: absolute;
   left: 52%;
   top: 28%;
-  z-index: 2;
+  z-index: 4;
   width: 360px;
   height: 170px;
   border-radius: 50%;
@@ -475,12 +624,14 @@ h2 {
 
 .plume.active {
   opacity: 1;
+  animation: plumeBreathe 5.8s ease-in-out infinite;
 }
 
 .grid-layer {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .cell {
@@ -489,6 +640,13 @@ h2 {
   border-radius: 4px;
   background: rgba(22, 135, 101, 0.11);
   transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.cell:hover,
+.product-card:hover,
+.dispatch-card:hover,
+.reason-grid div:hover {
+  transform: translateY(-2px);
 }
 
 .cell.watch {
@@ -680,6 +838,7 @@ canvas {
   max-width: 1240px;
   margin: 0 auto;
   padding: 24px 18px 70px;
+  animation: softRise 520ms ease both;
 }
 
 .page-nav {
@@ -713,6 +872,7 @@ canvas {
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 253, 251, 0.96)),
     var(--panel);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
 .page-hero {
@@ -809,6 +969,28 @@ canvas {
   padding-left: 18px;
 }
 
+.enterprise-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.enterprise-list li {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fbfefd, #f7fbf9);
+  padding: 12px;
+}
+
+.enterprise-list span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -869,6 +1051,66 @@ canvas {
 
 .fallback-map span {
   color: var(--muted);
+}
+
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  background: rgba(18, 48, 58, 0.22);
+  padding: 24px;
+  pointer-events: none;
+}
+
+.tour-overlay.hidden {
+  display: none;
+}
+
+.tour-card {
+  width: min(560px, 100%);
+  border: 1px solid rgba(207, 225, 223, 0.9);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 70px rgba(18, 48, 58, 0.28);
+  padding: 20px;
+  pointer-events: auto;
+}
+
+.tour-card > span {
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.tour-card h2 {
+  margin-top: 6px;
+  font-size: 1.35rem;
+}
+
+.tour-card p {
+  margin: 8px 0 16px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.tour-focus {
+  position: relative;
+  z-index: 9999;
+  outline: 3px solid rgba(22, 135, 101, 0.5);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @media (max-width: 1050px) {

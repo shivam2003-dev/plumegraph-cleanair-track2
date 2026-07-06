@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Research Basis</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="ops.html">Ops</a>
+        <a href="integrations.html">Integrations</a>
+        <a href="admin.html">Admin</a>
+        <a href="analytics.html">Analytics</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Research-backed design</p>
+        <h1>Built from evidence, not dashboard decoration.</h1>
+        <p>The architecture follows published findings on low-cost sensor calibration, smartphone-image PM estimation, satellite AOD priors, and spatiotemporal air-quality forecasting.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Low-cost sensors</h2>
+          <p>Research supports low-cost PM networks only when calibration, humidity correction, co-location, and drift monitoring are part of the operating model.</p>
+        </article>
+        <article class="product-card">
+          <h2>Citizen photos</h2>
+          <p>Smartphone images can contribute PM/haze signals because particles scatter light and degrade outdoor visibility, but this should be treated as soft evidence.</p>
+        </article>
+        <article class="product-card">
+          <h2>Satellite priors</h2>
+          <p>MAIAC/MODIS AOD and Sentinel/TROPOMI products help with regional context and priors; they are not street-level truth by themselves.</p>
+        </article>
+        <article class="product-card">
+          <h2>Forecasting</h2>
+          <p>Spatiotemporal graph models are strong long-term candidates, while gradient boosting is the practical hackathon/pilot baseline for sparse data.</p>
+        </article>
+        <article class="product-card wide">
+          <h2>Design decision</h2>
+          <p>PlumeGraph therefore uses a transparent evidence graph: each source has confidence, decay, corroboration rules, and municipal accountability.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PlumeGraph | CleanAir & Clear Streets</title>
     <link rel="icon" href="favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -21,6 +27,11 @@
             <a href="forecast.html">Forecast</a>
             <a href="dispatch.html">Dispatch</a>
             <a href="ai-copilot.html">AI</a>
+            <a href="ops.html">Ops</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="integrations.html">Integrations</a>
+            <a href="admin.html">Admin</a>
+            <a href="research.html">Research</a>
             <a href="solution.html">Full solution</a>
             <a href="pitch-deck.html">Pitch deck</a>
             <a href="write-up.html">Write-up</a>
@@ -32,6 +43,7 @@
             Live fusion
           </div>
           <button class="icon-button" id="langToggle" type="button" title="Toggle Hindi labels">अ/En</button>
+          <button class="secondary-button" id="startTour" type="button">Guided tour</button>
           <button class="primary-button" id="runScenario" type="button">Run dump-fire scenario</button>
         </div>
       </header>
@@ -51,13 +63,11 @@
           </div>
 
           <div class="city-map" id="cityMap">
+            <div class="leaflet-map" id="realMap" aria-label="Real OpenStreetMap base map of East Delhi"></div>
             <div class="north-label">N</div>
             <div class="wind-ribbon" id="windRibbon">
               <span>Wind 8 km/h NE → SW</span>
             </div>
-            <div class="road arterial"></div>
-            <div class="road ring"></div>
-            <div class="road market"></div>
             <div class="landmark dump">Dump edge</div>
             <div class="landmark school">School</div>
             <div class="landmark hospital">Clinic</div>
@@ -173,6 +183,12 @@
     </div>
 
     <script src="plumegraph-core.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="app.js"></script>
+    <script src="tour.js"></script>
   </body>
 </html>

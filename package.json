@@ -4,7 +4,8 @@
   "private": true,
   "description": "PlumeGraph hyperlocal pollution response prototype",
   "scripts": {
+    "generate:ai": "node scripts/generate-ai-insights.mjs",
     "test": "node --test tests/*.test.js",
-    "check": "node --check app.js && node --check plumegraph-core.js && node --check plumegraph-pages.js"
+    "check": "node --check app.js && node --check plumegraph-core.js && node --check plumegraph-pages.js && node --check scripts/generate-ai-insights.mjs"
   }
 }

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Integrations</title>
+    <link rel="icon" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="product-page">
+      <nav class="page-nav">
+        <a href="./">Command</a>
+        <a href="ops.html">Ops</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="admin.html">Admin</a>
+        <a href="research.html">Research</a>
+      </nav>
+      <section class="page-hero">
+        <p class="eyebrow">Enterprise · Integration readiness</p>
+        <h1>Connect to the systems Indian cities already use.</h1>
+        <p>No fake live integrations: this page marks what is active in the public demo and what requires municipal credentials or production API access.</p>
+      </section>
+      <section class="product-grid">
+        <article class="product-card">
+          <h2>Readiness</h2>
+          <div class="metric-row"><span>Score</span><strong id="readinessScore">--</strong></div>
+          <div class="metric-row"><span>Status</span><strong id="readinessStatus">--</strong></div>
+          <div class="metric-row"><span>Missing</span><strong id="missingIntegrations">--</strong></div>
+        </article>
+        <article class="product-card">
+          <h2>Real now</h2>
+          <ul class="check-list">
+            <li>OpenStreetMap base map</li>
+            <li>GitHub Actions CI/CD</li>
+            <li>Build-time AI insights through GitHub Secret</li>
+            <li>Deterministic tested evidence logic</li>
+          </ul>
+        </article>
+        <article class="product-card wide">
+          <h2>Production connectors</h2>
+          <div class="pipeline">
+            <span>CPCB / SAMEER</span>
+            <span>NASA FIRMS</span>
+            <span>Sentinel / MODIS</span>
+            <span>Swachhata</span>
+            <span>ICCC</span>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="plumegraph-core.js"></script>
+    <script src="plumegraph-enterprise.js"></script>
+  </body>
+</html>

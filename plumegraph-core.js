@@ -201,6 +201,157 @@
     };
   }
 
+  function routeMunicipalAlert(hotspot) {
+    const source = {
+      cause: "unknown_smoke",
+      ward: "Ward 42",
+      confidence: 0.72,
+      forecastPeakAqi: 180,
+      sensitiveSites: 0,
+      ...hotspot,
+    };
+
+    const routeByCause = {
+      garbage_fire: {
+        primary: "Solid Waste Department",
+        secondary: "Water-mist / Fire Response Unit",
+        slaMinutes: 30,
+        escalation: "Zonal Sanitation Officer",
+      },
+      construction_dust: {
+        primary: "Building Enforcement Cell",
+        secondary: "PWD Road Dust Team",
+        slaMinutes: 45,
+        escalation: "Assistant Commissioner",
+      },
+      traffic_smog: {
+        primary: "Traffic Police",
+        secondary: "Road Sweeping Unit",
+        slaMinutes: 40,
+        escalation: "ICCC Shift Lead",
+      },
+      industrial_plume: {
+        primary: "State Pollution Control Board Field Team",
+        secondary: "District Magistrate Control Room",
+        slaMinutes: 60,
+        escalation: "Regional Pollution Officer",
+      },
+      unknown_smoke: {
+        primary: "Ward Field Inspector",
+        secondary: "ICCC Verification Desk",
+        slaMinutes: 35,
+        escalation: "Ward Officer",
+      },
+    };
+
+    const route = routeByCause[source.cause] || routeByCause.unknown_smoke;
+    const urgency =
+      source.forecastPeakAqi >= 240 || source.sensitiveSites >= 2 || source.confidence >= 0.9 ? "high" : "normal";
+
+    return {
+      ...route,
+      ward: source.ward,
+      urgency,
+      publicLabel: `${route.primary} · ${urgency.toUpperCase()} · SLA ${route.slaMinutes} min`,
+    };
+  }
+
+  function evaluateSensorHealth(sensor) {
+    const source = {
+      uptimePct: 98,
+      batteryPct: 76,
+      driftScore: 0.08,
+      lastSeenMinutes: 6,
+      humidityBias: 0.12,
+      ...sensor,
+    };
+
+    let score = 100;
+    if (source.uptimePct < 95) score -= 14;
+    if (source.batteryPct < 25) score -= 18;
+    if (source.driftScore > 0.2) score -= 28;
+    if (source.lastSeenMinutes > 30) score -= 26;
+    if (source.humidityBias > 0.25) score -= 12;
+    score = Math.round(clamp(score, 0, 100));
+
+    return {
+      score,
+      status: score >= 85 ? "healthy" : score >= 65 ? "watch" : "maintenance",
+      action:
+        score >= 85
+          ? "No action needed"
+          : source.driftScore > 0.2
+            ? "Schedule CPCB co-location calibration"
+            : source.batteryPct < 25
+              ? "Replace battery during next ward round"
+              : "Field inspection required",
+    };
+  }
+
+  function computeWardPriority(ward) {
+    const source = {
+      confirmedHotspots: 0,
+      exposedPopulation: 0,
+      schoolsClinics: 0,
+      repeatHotspotDays: 0,
+      avgAqi24h: 120,
+      ...ward,
+    };
+    const score =
+      source.confirmedHotspots * 18 +
+      Math.min(28, source.exposedPopulation / 450) +
+      source.schoolsClinics * 4 +
+      source.repeatHotspotDays * 3 +
+      Math.max(0, (source.avgAqi24h - 100) / 5);
+    const priority = Math.round(clamp(score, 0, 100));
+    return {
+      priority,
+      band: priority >= 70 ? "critical" : priority >= 42 ? "priority" : "stable",
+    };
+  }
+
+  function enterpriseReadiness(config) {
+    const source = {
+      iccc: false,
+      cpcb: false,
+      swachhata: false,
+      fcmSms: false,
+      postgis: false,
+      auditLogs: false,
+      privacyBlur: false,
+      offlineQueue: false,
+      regionalLanguages: false,
+      ...config,
+    };
+    const checks = Object.values(source).filter(Boolean).length;
+    const total = Object.keys(source).length;
+    const score = Math.round((checks / total) * 100);
+    return {
+      score,
+      status: score >= 85 ? "pilot-ready" : score >= 60 ? "implementation-ready" : "prototype",
+      missing: Object.entries(source)
+        .filter(([, value]) => !value)
+        .map(([key]) => key),
+    };
+  }
+
+  function generateAuditEvent(event) {
+    const source = {
+      actorRole: "Ward Officer",
+      action: "DISPATCH_RESOURCE",
+      incidentId: "INC-W42-1029",
+      evidenceHash: "ev_7c2a91",
+      timestamp: "2026-07-07T14:20:00+05:30",
+      ...event,
+    };
+
+    return {
+      id: `${source.incidentId}-${source.action}-${source.timestamp}`.replace(/[^A-Z0-9-]/gi, "").slice(0, 64),
+      line: `${source.timestamp} · ${source.actorRole} · ${source.action} · ${source.incidentId} · evidence ${source.evidenceHash}`,
+      retention: "7 years municipal audit retention",
+    };
+  }
+
   return {
     STAGES,
     calculateConfidence,
@@ -209,5 +360,10 @@
     forecastAqi,
     recommendDispatch,
     summarizeIncident,
+    routeMunicipalAlert,
+    evaluateSensorHealth,
+    computeWardPriority,
+    enterpriseReadiness,
+    generateAuditEvent,
   };
 });

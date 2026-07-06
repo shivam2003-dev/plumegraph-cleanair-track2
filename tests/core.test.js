@@ -93,3 +93,65 @@ test("AI summary returns municipal brief and field checklist", () => {
   assert.match(summary.municipalBrief, /Confirmed hotspot/);
   assert.ok(summary.fieldChecklist.length >= 4);
 });
+
+test("municipal alert routing is cause-specific for India city ops", () => {
+  const route = core.routeMunicipalAlert({
+    cause: "garbage_fire",
+    ward: "Ward 42",
+    confidence: 0.96,
+    forecastPeakAqi: 247,
+    sensitiveSites: 2,
+  });
+  assert.equal(route.primary, "Solid Waste Department");
+  assert.equal(route.urgency, "high");
+  assert.match(route.publicLabel, /SLA 30 min/);
+});
+
+test("sensor health flags drift and maintenance action", () => {
+  const health = core.evaluateSensorHealth({
+    uptimePct: 92,
+    batteryPct: 44,
+    driftScore: 0.31,
+    lastSeenMinutes: 8,
+  });
+  assert.equal(health.status, "maintenance");
+  assert.match(health.action, /calibration/);
+});
+
+test("ward priority escalates with exposed population and repeat hotspots", () => {
+  const ward = core.computeWardPriority({
+    confirmedHotspots: 3,
+    exposedPopulation: 8400,
+    schoolsClinics: 4,
+    repeatHotspotDays: 5,
+    avgAqi24h: 188,
+  });
+  assert.equal(ward.band, "critical");
+  assert.ok(ward.priority >= 70);
+});
+
+test("enterprise readiness reports missing integrations", () => {
+  const readiness = core.enterpriseReadiness({
+    iccc: true,
+    cpcb: true,
+    swachhata: true,
+    fcmSms: true,
+    postgis: true,
+    auditLogs: true,
+    privacyBlur: true,
+    offlineQueue: true,
+    regionalLanguages: false,
+  });
+  assert.equal(readiness.status, "pilot-ready");
+  assert.deepEqual(readiness.missing, ["regionalLanguages"]);
+});
+
+test("audit event creates durable municipal log line", () => {
+  const audit = core.generateAuditEvent({
+    actorRole: "ICCC Shift Lead",
+    action: "CONFIRM_HOTSPOT",
+    incidentId: "INC-W42-1029",
+  });
+  assert.match(audit.line, /ICCC Shift Lead/);
+  assert.match(audit.retention, /7 years/);
+});

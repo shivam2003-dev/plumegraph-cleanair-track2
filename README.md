@@ -58,6 +58,7 @@ Submission pages:
 - Pitch deck: `pitch-deck.html`
 - Project write-up: `write-up.html`
 - Phase 1/2 product pages: `report.html`, `evidence.html`, `forecast.html`, `dispatch.html`, `ai-copilot.html`
+- Enterprise pages: `ops.html`, `integrations.html`, `admin.html`, `analytics.html`, `research.html`
 
 ## Google Cloud Pilot Path
 
@@ -70,6 +71,24 @@ The prototype is static for hackathon reliability. The city-pilot architecture m
 - Vertex AI for image evidence and AQI forecast models
 - BigQuery for intervention analytics and impact reports
 - Firebase Cloud Messaging for ward officer alerts
+
+## Real vs Configured
+
+Real in the public demo:
+
+- OpenStreetMap base map
+- GitHub Actions CI/CD
+- automated syntax checks and unit tests
+- build-time AI insights via GitHub Secret when configured
+- deterministic, tested evidence/forecast/dispatch logic
+
+Configured for production:
+
+- CPCB/SAMEER ingestion
+- NASA FIRMS and Sentinel/MODIS scheduled ingestion
+- ICCC ticketing/dispatch APIs
+- FCM/SMS/WhatsApp alert delivery
+- PostGIS-backed live event store
 
 ## Hackathon Positioning
 

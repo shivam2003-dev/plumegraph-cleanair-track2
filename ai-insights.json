@@ -1,0 +1,20 @@
+{
+  "generatedBy": "deterministic-fallback",
+  "generatedAt": "2026-07-06T19:43:51.480Z",
+  "model": "local",
+  "title": "Confirmed dump-fire pollution hotspot",
+  "municipalBrief": "Confirmed hotspot with 96% confidence. Forecast peak AQI 247 during 19:00-21:00. Dispatch mist cannon and solid-waste crew; lock before-reading now.",
+  "citizenAlert": "Air-quality alert: smoke hotspot confirmed nearby. Avoid outdoor activity for the next 2 hours. Municipal response is being dispatched.",
+  "fieldChecklist": [
+    "Confirm source location and access route",
+    "Capture before PM2.5/PM10 reading",
+    "Deploy misting or cleanup response",
+    "Capture after-reading 30-90 minutes later",
+    "Reopen case if PM rebounds within 3 hours"
+  ],
+  "dataProvenance": [
+    "OpenStreetMap base layer",
+    "Deterministic incident scenario for repeatable judging",
+    "AI provider unavailable or secret not configured"
+  ]
+}

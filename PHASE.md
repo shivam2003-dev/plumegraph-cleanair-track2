@@ -123,3 +123,27 @@ Pilot metrics:
 - repeated hotspot reduction
 - exposed population protected
 - SLA closure rate
+
+## Phase 5: Enterprise India Platform
+
+Status: completed in the static enterprise demo
+
+Goal: make PlumeGraph feel like a municipal SaaS that can be evaluated by a commissioner, ICCC operator, ward officer, and technical integration team.
+
+Delivered:
+
+- Real OpenStreetMap base layer on the command dashboard.
+- First-time guided tour for judges and municipal evaluators.
+- `ops.html`: city/ward operations queue.
+- `integrations.html`: India system integration readiness.
+- `admin.html`: sensor fleet health and calibration governance.
+- `analytics.html`: SLA, proof, and audit-grade impact view.
+- `research.html` and `RESEARCH.md`: research-backed design rationale.
+- Build-time AI insight generation through GitHub Actions secret.
+
+Enterprise constraints:
+
+- No private API key is shipped to the browser.
+- Public demo labels configured integrations honestly.
+- Low-cost sensor readings are confidence-weighted, not treated as regulatory truth.
+- Satellite data is a prior, not street-level proof.
