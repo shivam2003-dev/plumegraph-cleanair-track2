@@ -89,6 +89,27 @@ h2 {
   justify-content: flex-end;
 }
 
+.submission-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.submission-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
 .status-pill,
 .section-heading > span,
 .legend span,
@@ -657,6 +678,10 @@ canvas {
   .topbar-actions,
   .legend {
     justify-content: flex-start;
+    width: 100%;
+  }
+
+  .submission-links {
     width: 100%;
   }
 

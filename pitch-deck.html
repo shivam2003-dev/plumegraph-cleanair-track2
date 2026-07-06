@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Pitch Deck</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background: #0f1418;
+        color: #f7fbfc;
+      }
+
+      .deck-shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 18px 48px;
+      }
+
+      .deck-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .deck-nav a {
+        color: #84c7ef;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .slide {
+        display: grid;
+        min-height: 620px;
+        margin-bottom: 26px;
+        padding: 58px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        background:
+          linear-gradient(135deg, rgba(47, 111, 159, 0.2), transparent 34%),
+          radial-gradient(circle at 78% 24%, rgba(45, 138, 104, 0.23), transparent 28%),
+          #141a20;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .slide.center {
+        place-items: center;
+        text-align: center;
+      }
+
+      .slide-kicker {
+        color: #84c7ef;
+        font-size: 1rem;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .slide h1 {
+        margin-top: 14px;
+        font-size: clamp(3.2rem, 7vw, 6rem);
+      }
+
+      .slide h2 {
+        max-width: 930px;
+        margin-top: 12px;
+        font-size: clamp(2.6rem, 5vw, 4.4rem);
+        line-height: 1.03;
+      }
+
+      .slide p {
+        max-width: 860px;
+        margin-top: 24px;
+        color: rgba(247, 251, 252, 0.82);
+        font-size: 1.45rem;
+        line-height: 1.45;
+      }
+
+      .slide-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+        margin-top: 36px;
+      }
+
+      .slide-card {
+        min-height: 150px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 24px;
+      }
+
+      .slide-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: white;
+        font-size: 1.45rem;
+      }
+
+      .slide-card span {
+        color: rgba(247, 251, 252, 0.75);
+        font-size: 1.05rem;
+        line-height: 1.4;
+      }
+
+      .big-number {
+        color: #6fd18f;
+        font-size: clamp(4rem, 8vw, 7rem);
+        font-weight: 950;
+      }
+
+      @media (max-width: 760px) {
+        .slide {
+          min-height: auto;
+          padding: 30px;
+        }
+
+        .slide-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck-shell">
+      <nav class="deck-nav">
+        <a href="./">← Prototype</a>
+        <a href="PROJECT_WRITEUP.md">Project write-up</a>
+      </nav>
+
+      <section class="slide center">
+        <div>
+          <div class="slide-kicker">CleanAir & Clear Streets</div>
+          <h1>PlumeGraph</h1>
+          <p>Neighbourhood pollution intelligence that detects hidden hotspots, predicts AQI spikes, dispatches municipal teams, and proves the air improved.</p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">The Problem</div>
+        <h2>City AQI misses the street where people are actually breathing smoke.</h2>
+        <p>Dump fires, construction dust, industrial plumes, and smog-trap junctions can harm one ward while the official AQI station looks normal.</p>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">Why Existing Apps Fail</div>
+        <h2>Most tools stop at a red dot.</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><strong>Sparse stations</strong><span>Regulatory monitors cannot see every street or dump edge.</span></div>
+          <div class="slide-card"><strong>Noisy complaints</strong><span>Citizen reports need trust, tamper checks, and corroboration.</span></div>
+          <div class="slide-card"><strong>Coarse satellite data</strong><span>Satellite products are useful priors, not lane-level truth.</span></div>
+          <div class="slide-card"><strong>No proof loop</strong><span>Alerts rarely show whether a municipal action worked.</span></div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">The Solution</div>
+        <h2>An evidence graph for hyperlocal pollution response.</h2>
+        <p>PlumeGraph fuses citizen photos, low-cost PM sensors, NASA FIRMS fire priors, Sentinel/MODIS context, and weather into Watch, Suspected, Confirmed, and Mitigated hotspot states.</p>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">AI Execution</div>
+        <h2>The AI does operational work, not decoration.</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><strong>Photo intelligence</strong><span>Smoke, dust, garbage-fire probability, haze proxy, EXIF confidence.</span></div>
+          <div class="slide-card"><strong>Sensor anomaly</strong><span>Humidity-corrected PM2.5/PM10 with local baseline deviation.</span></div>
+          <div class="slide-card"><strong>Wind-aware fusion</strong><span>Reports become stronger when downwind sensors spike.</span></div>
+          <div class="slide-card"><strong>24-hour forecast</strong><span>XGBoost now, spatiotemporal GNN later.</span></div>
+        </div>
+      </section>
+
+      <section class="slide center">
+        <div>
+          <div class="slide-kicker">Demo Moment</div>
+          <div class="big-number">96%</div>
+          <h2>Confirmed dump-fire hotspot</h2>
+          <p>One citizen photo becomes a confirmed incident only after sensor, fire-prior, and wind-consistency evidence agree.</p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">Municipal Action</div>
+        <h2>From detection to dispatch.</h2>
+        <p>The action layer assigns MC-03 mist cannon and SW-12 cleanup crew based on cause, ETA, exposed population, school proximity, and predicted AQI spike.</p>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">Accountability</div>
+        <h2>Proof of Action is the headline feature.</h2>
+        <p>Before/after PM2.5, PM10, visual haze, SLA closure, and citizen complaint trends prove whether the intervention worked.</p>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">Deployability</div>
+        <h2>Prototype today, Google Cloud city pilot next.</h2>
+        <div class="slide-grid">
+          <div class="slide-card"><strong>Now</strong><span>Static prototype on GitHub Pages via GitHub Actions CI/CD.</span></div>
+          <div class="slide-card"><strong>Pilot</strong><span>Cloud Run, Pub/Sub, Cloud SQL/PostGIS, Cloud Storage, Vertex AI, BigQuery.</span></div>
+          <div class="slide-card"><strong>Integration</strong><span>CPCB/SAMEER context, Swachhata-style complaints, ICCC dashboards.</span></div>
+          <div class="slide-card"><strong>Scale</strong><span>Ward-by-ward rollout using CSR-funded sensors and municipal fleets.</span></div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-kicker">Inclusion</div>
+        <h2>Built for Indian city conditions.</h2>
+        <p>Cheap Android support, offline queue, compressed image upload, Hindi/regional labels, voice notes, privacy blur, and low-literacy-friendly workflows.</p>
+      </section>
+
+      <section class="slide center">
+        <div>
+          <div class="slide-kicker">The Ask</div>
+          <h2>Pilot one ward in 30 days.</h2>
+          <p>20 low-cost sensors, sanitation fleet participation, ICCC dashboard access, and school/RWA citizen reporting.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlumeGraph Project Write-up</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .doc-shell {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 18px 64px;
+      }
+
+      .doc-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .doc-nav a {
+        color: var(--blue);
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .doc-hero,
+      .doc-section {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        box-shadow: var(--shadow);
+      }
+
+      .doc-hero {
+        padding: 36px;
+        margin-bottom: 18px;
+      }
+
+      .doc-hero h1 {
+        margin-top: 8px;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+      }
+
+      .doc-hero p {
+        max-width: 850px;
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 1.15rem;
+        line-height: 1.55;
+      }
+
+      .doc-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .doc-section {
+        padding: 24px;
+      }
+
+      .doc-section.wide {
+        grid-column: 1 / -1;
+      }
+
+      .doc-section h2 {
+        margin-bottom: 12px;
+        font-size: 1.35rem;
+      }
+
+      .doc-section p,
+      .doc-section li {
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.55;
+      }
+
+      .doc-section ul {
+        margin: 12px 0 0;
+        padding-left: 18px;
+      }
+
+      .pipeline {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .pipeline span {
+        min-height: 74px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #eef6f3;
+        color: var(--ink);
+        font-weight: 900;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .arch-diagram {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .arch-diagram div {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfc;
+        padding: 14px;
+      }
+
+      .arch-diagram strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .arch-diagram span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 760px) {
+        .doc-grid,
+        .pipeline,
+        .arch-diagram {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="doc-shell">
+      <nav class="doc-nav">
+        <a href="./">Prototype</a>
+        <a href="pitch-deck.html">Pitch deck</a>
+      </nav>
+
+      <section class="doc-hero">
+        <p class="eyebrow">Project write-up</p>
+        <h1>PlumeGraph</h1>
+        <p>
+          A neighbourhood-level pollution command system that combines citizen-uploaded smoke/dust photos,
+          local PM sensors, satellite fire/AOD priors, and weather to detect hidden hotspots, predict AQI
+          spikes, dispatch municipal resources, and prove the intervention worked.
+        </p>
+      </section>
+
+      <section class="doc-grid">
+        <article class="doc-section">
+          <h2>Problem-Solution Fit</h2>
+          <p>City AQI apps are too coarse for dump fires, construction dust, industrial plumes, and smog-trap junctions. PlumeGraph operates at ward and street-grid level, where residents actually experience exposure.</p>
+        </article>
+
+        <article class="doc-section">
+          <h2>AI / Technical Execution</h2>
+          <p>AI scores smoke/dust photos, estimates visual haze, detects sensor anomalies, fuses satellite priors, and forecasts 24-hour AQI spikes with explainable features.</p>
+        </article>
+
+        <article class="doc-section">
+          <h2>Deployability</h2>
+          <p>The prototype deploys through GitHub Actions to GitHub Pages. A city pilot maps to Cloud Run, Pub/Sub, Cloud SQL/PostGIS, Cloud Storage, Vertex AI, BigQuery, and Firebase Cloud Messaging.</p>
+        </article>
+
+        <article class="doc-section">
+          <h2>Inclusivity</h2>
+          <p>Cheap Android flow, compressed uploads, Hindi/regional labels, offline queue, voice note support, privacy blur, and low-literacy-friendly municipal workflows.</p>
+        </article>
+
+        <article class="doc-section wide">
+          <h2>Working Prototype Flow</h2>
+          <div class="pipeline">
+            <span>Citizen photo</span>
+            <span>Sensor spike</span>
+            <span>FIRMS prior</span>
+            <span>AQI forecast</span>
+            <span>Dispatch + proof</span>
+          </div>
+        </article>
+
+        <article class="doc-section wide">
+          <h2>Architecture</h2>
+          <div class="arch-diagram">
+            <div><strong>Evidence Capture</strong><span>Android/web reports, PMS7003/SDS011 sensors, NASA FIRMS, Sentinel/MODIS, IMD/ERA5 weather.</span></div>
+            <div><strong>Fusion + Forecast</strong><span>Cloud Run ML service, Vertex AI image model, weighted geospatial fusion, XGBoost AQI forecast, PostGIS grid state.</span></div>
+            <div><strong>Municipal Action</strong><span>ICCC dashboard, asset assignment, FCM/SMS/WhatsApp alerts, SLA timer, before/after proof in BigQuery.</span></div>
+          </div>
+        </article>
+
+        <article class="doc-section wide">
+          <h2>Impact</h2>
+          <ul>
+            <li>Detects hidden hotspots before city-level AQI moves.</li>
+            <li>Prioritizes action by exposed population, schools/clinics, and predicted AQI spike.</li>
+            <li>Creates a measurable accountability loop for municipal response.</li>
+            <li>Can start ward-by-ward with CSR-funded sensors and existing ICCC workflows.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
