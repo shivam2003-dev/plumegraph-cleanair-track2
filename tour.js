@@ -1,29 +1,34 @@
 (function initTour() {
   const steps = [
     {
-      title: "Real Map Command Center",
-      body: "This dashboard uses OpenStreetMap as the real neighbourhood base map. PlumeGraph overlays pollution cells, plume direction, sensors, and municipal assets.",
+      title: "Start With The Ward Map",
+      body: "This is a real OpenStreetMap base layer for the neighbourhood. PlumeGraph adds pollution evidence, sensors, plume direction, and municipal assets on top.",
       target: ".map-panel",
     },
     {
-      title: "Citizen Evidence",
-      body: "Reports are scored for smoke/dust, haze, EXIF consistency, duplicate risk, and reporter trust before they influence a hotspot.",
+      title: "Add Citizen Evidence",
+      body: "A citizen or field worker submits a smoke/dust report. The system checks photo evidence, location, language note, duplicate risk, and reporter trust.",
       target: ".control-panel",
     },
     {
-      title: "Evidence Graph",
-      body: "One report can create Watch only. Confirmed requires independent evidence from sensor, satellite/fire prior, and wind plausibility.",
+      title: "Confirm Only With Corroboration",
+      body: "One report creates Watch only. Confirmed requires independent evidence: sensor spike, satellite/fire prior, and wind plausibility.",
       target: "#evidenceList",
     },
     {
-      title: "24-hour Forecast",
-      body: "The forecast explains likely AQI spike timing and drivers so municipal teams can act before exposure peaks.",
+      title: "Predict The Next 24 Hours",
+      body: "The forecast shows likely AQI peak, spike window, exposed population, and drivers so teams can act before the worst exposure period.",
       target: ".forecast-panel",
     },
     {
-      title: "Dispatch + Proof",
-      body: "The workflow does not stop at an alert. It assigns assets, tracks SLA, and records before/after PM reduction.",
+      title: "Dispatch And Prove Impact",
+      body: "The workflow assigns a mist cannon or cleanup crew, starts SLA tracking, and records before/after PM reduction as proof of action.",
       target: ".dispatch-panel",
+    },
+    {
+      title: "Explore Enterprise Pages",
+      body: "Use the top links for Ops, Analytics, Integrations, Admin, Research, and AI Copilot. These show the city-scale operating model.",
+      target: ".submission-links",
     },
   ];
 
@@ -36,17 +41,27 @@
     overlay.className = "tour-overlay hidden";
     overlay.innerHTML = `
       <div class="tour-card" role="dialog" aria-live="polite">
-        <span id="tourStep">1 / ${steps.length}</span>
+        <div class="tour-topline">
+          <span id="tourStep">Step 1 of ${steps.length}</span>
+          <button class="tour-close" id="tourClose" type="button" aria-label="Close guided tour">×</button>
+        </div>
         <h2 id="tourTitle"></h2>
         <p id="tourBody"></p>
+        <div class="tour-progress" aria-hidden="true">
+          <i id="tourProgressBar"></i>
+        </div>
         <div class="button-row">
-          <button class="secondary-button" id="tourSkip" type="button">Skip</button>
+          <button class="secondary-button" id="tourBack" type="button">Back</button>
           <button class="primary-button" id="tourNext" type="button">Next</button>
         </div>
       </div>
     `;
     document.body.appendChild(overlay);
-    overlay.querySelector("#tourSkip").addEventListener("click", endTour);
+    overlay.querySelector("#tourClose").addEventListener("click", endTour);
+    overlay.querySelector("#tourBack").addEventListener("click", () => {
+      if (index === 0) endTour();
+      else showStep(index - 1);
+    });
     overlay.querySelector("#tourNext").addEventListener("click", () => {
       if (index >= steps.length - 1) endTour();
       else showStep(index + 1);
@@ -66,11 +81,13 @@
     const target = document.querySelector(step.target);
     if (target) {
       target.classList.add("tour-focus");
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
     }
-    document.querySelector("#tourStep").textContent = `${index + 1} / ${steps.length}`;
+    document.querySelector("#tourStep").textContent = `Step ${index + 1} of ${steps.length}`;
     document.querySelector("#tourTitle").textContent = step.title;
     document.querySelector("#tourBody").textContent = step.body;
+    document.querySelector("#tourProgressBar").style.width = `${((index + 1) / steps.length) * 100}%`;
+    document.querySelector("#tourBack").textContent = index === 0 ? "Close" : "Back";
     document.querySelector("#tourNext").textContent = index === steps.length - 1 ? "Finish" : "Next";
   }
 
@@ -87,7 +104,10 @@
   window.PlumeGraphTour = { start: startTour };
   document.querySelector("#startTour")?.addEventListener("click", startTour);
 
-  if (!localStorage.getItem("plumegraphTourSeen")) {
-    window.setTimeout(startTour, 700);
-  }
+  const launcher = document.createElement("button");
+  launcher.className = "tour-launcher";
+  launcher.type = "button";
+  launcher.textContent = "Start guided tour";
+  launcher.addEventListener("click", startTour);
+  document.body.appendChild(launcher);
 })();

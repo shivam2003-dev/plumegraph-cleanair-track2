@@ -1059,10 +1059,25 @@ canvas {
   z-index: 10000;
   display: grid;
   align-items: end;
-  justify-items: center;
+  justify-items: end;
   background: rgba(18, 48, 58, 0.22);
-  padding: 24px;
+  padding: 18px;
   pointer-events: none;
+}
+
+.tour-launcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9000;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--ink), var(--green));
+  color: white;
+  font-weight: 950;
+  box-shadow: 0 14px 34px rgba(18, 48, 58, 0.28);
+  padding: 0 18px;
 }
 
 .tour-overlay.hidden {
@@ -1070,24 +1085,44 @@ canvas {
 }
 
 .tour-card {
-  width: min(560px, 100%);
+  width: min(430px, calc(100vw - 28px));
   border: 1px solid rgba(207, 225, 223, 0.9);
-  border-radius: 10px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 24px 70px rgba(18, 48, 58, 0.28);
-  padding: 20px;
+  padding: 16px;
   pointer-events: auto;
 }
 
-.tour-card > span {
+.tour-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tour-topline > span {
   color: var(--green);
   font-size: 0.82rem;
   font-weight: 950;
 }
 
+.tour-close {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
 .tour-card h2 {
   margin-top: 6px;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
 }
 
 .tour-card p {
@@ -1096,11 +1131,40 @@ canvas {
   line-height: 1.45;
 }
 
+.tour-progress {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e4efed;
+  margin-bottom: 14px;
+}
+
+.tour-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  transition: width 180ms ease;
+}
+
 .tour-focus {
   position: relative;
   z-index: 9999;
-  outline: 3px solid rgba(22, 135, 101, 0.5);
-  outline-offset: 4px;
+  outline: 4px solid rgba(22, 135, 101, 0.42);
+  outline-offset: 6px;
+  box-shadow: 0 0 0 10px rgba(22, 135, 101, 0.09), var(--shadow);
+}
+
+@media (max-width: 720px) {
+  .tour-overlay {
+    justify-items: center;
+    padding: 10px;
+  }
+
+  .tour-card {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
