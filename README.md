@@ -28,6 +28,7 @@ http://127.0.0.1:5174/
 - `index.html` - app shell
 - `styles.css` - responsive operational UI and custom map
 - `app.js` - hotspot state machine, forecast chart, dispatch logic
+- `solution.md` - submission-ready solution summary and evaluation mapping
 - `PLUMEGRAPH_SOLUTION.md` - full technical and product blueprint
 - `PROJECT_WRITEUP.md` / `write-up.html` - submission write-up
 - `PITCH_DECK.md` / `pitch-deck.html` - pitch deck
