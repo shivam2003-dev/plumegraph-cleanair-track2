@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: us-east4-docker.pkg.dev/project-72558650-faf6-4529-a05/people-priority/vayulens:gcp-20260708051520-initial-amd64
+          image: us-east4-docker.pkg.dev/project-72558650-faf6-4529-a05/people-priority/vayulens:gcp-20260708051952-73f0603-amd64
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
