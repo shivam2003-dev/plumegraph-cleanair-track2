@@ -1,5 +1,5 @@
 (function initEnterprisePages() {
-  const core = window.PlumeGraphCore;
+  const core = window.VayuLensCore;
   if (!core) return;
 
   function set(id, value) {

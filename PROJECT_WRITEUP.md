@@ -1,8 +1,8 @@
-# PlumeGraph Project Write-Up
+# VayuLens Project Write-Up
 
 ## Project
 
-**PlumeGraph** is a neighbourhood-level pollution command system for Indian cities. It combines citizen-uploaded smoke/dust photos, local PM sensor readings, satellite fire/AOD signals, and weather to detect hidden pollution hotspots, forecast 24-hour AQI spikes, and dispatch municipal resources with before/after proof.
+**VayuLens** is a neighbourhood-level pollution command system for Indian cities. It combines citizen-uploaded smoke/dust photos, local PM sensor readings, satellite fire/AOD signals, and weather to detect hidden pollution hotspots, forecast 24-hour AQI spikes, and dispatch municipal resources with before/after proof.
 
 ## Problem
 
@@ -17,7 +17,7 @@ Municipal teams also lack a reliable way to know:
 
 ## Solution
 
-PlumeGraph treats every citizen report, sensor, satellite signal, wind vector, and municipal action as evidence in a shared geospatial graph.
+VayuLens treats every citizen report, sensor, satellite signal, wind vector, and municipal action as evidence in a shared geospatial graph.
 
 The system moves a hotspot through four states:
 
@@ -137,7 +137,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Inclusivity And Accessibility
 
-PlumeGraph is designed for Indian city conditions:
+VayuLens is designed for Indian city conditions:
 
 - cheap Android-first reporting
 - compressed photo upload
@@ -169,7 +169,7 @@ Measurable outcomes:
 
 ## Why It Is Different
 
-Most teams will submit a pollution heatmap. PlumeGraph is an accountability system.
+Most teams will submit a pollution heatmap. VayuLens is an accountability system.
 
 It does not stop at "there is smoke here." It answers:
 
@@ -182,4 +182,4 @@ It does not stop at "there is smoke here." It answers:
 
 ## One-Line Pitch
 
-PlumeGraph turns citizen photos, cheap sensors, satellite fire signals, and weather into an accountable neighbourhood pollution command system that detects hidden hotspots, predicts AQI spikes, dispatches crews, and proves the air improved.
+VayuLens turns citizen photos, cheap sensors, satellite fire signals, and weather into an accountable neighbourhood pollution command system that detects hidden hotspots, predicts AQI spikes, dispatches crews, and proves the air improved.

@@ -1,8 +1,8 @@
-# PlumeGraph Pitch Deck
+# VayuLens Pitch Deck
 
 ## Slide 1: Title
 
-**PlumeGraph**  
+**VayuLens**  
 Neighbourhood pollution intelligence for CleanAir & Clear Streets.
 
 ## Slide 2: Problem
@@ -18,7 +18,7 @@ City AQI hides street-level harm. Dump fires, construction dust, smog-trap junct
 
 ## Slide 4: Solution
 
-PlumeGraph fuses citizen photos, PM sensors, satellite fire/AOD priors, weather, and municipal resources into a live evidence graph.
+VayuLens fuses citizen photos, PM sensors, satellite fire/AOD priors, weather, and municipal resources into a live evidence graph.
 
 ## Slide 5: AI That Does Real Work
 
@@ -46,4 +46,4 @@ Cheap Android, offline queue, compressed uploads, Hindi/regional labels, voice n
 
 ## Slide 10: Ask
 
-Pilot PlumeGraph in one ward with 20 low-cost sensors, sanitation fleet participation, ICCC dashboard access, and CSR-supported school/RWA reporting.
+Pilot VayuLens in one ward with 20 low-cost sensors, sanitation fleet participation, ICCC dashboard access, and CSR-supported school/RWA reporting.

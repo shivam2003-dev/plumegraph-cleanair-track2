@@ -2,7 +2,7 @@
   const steps = [
     {
       title: "Start With The Ward Map",
-      body: "This is a real OpenStreetMap base layer for the neighbourhood. PlumeGraph adds pollution evidence, sensors, plume direction, and municipal assets on top.",
+      body: "This is a real OpenStreetMap base layer for the neighbourhood. VayuLens adds pollution evidence, sensors, plume direction, and municipal assets on top.",
       target: ".map-panel",
     },
     {
@@ -93,7 +93,7 @@
 
   function startTour() {
     showStep(0);
-    localStorage.setItem("plumegraphTourSeen", "true");
+    localStorage.setItem("vayulensTourSeen", "true");
   }
 
   function endTour() {
@@ -101,7 +101,7 @@
     if (overlay) overlay.classList.add("hidden");
   }
 
-  window.PlumeGraphTour = { start: startTour };
+  window.VayuLensTour = { start: startTour };
   document.querySelector("#startTour")?.addEventListener("click", startTour);
 
   const launcher = document.createElement("button");

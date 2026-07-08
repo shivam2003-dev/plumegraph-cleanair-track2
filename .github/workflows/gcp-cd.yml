@@ -1,0 +1,141 @@
+name: GCP CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: vayulens-gcp-cd
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  APP_NAME: vayulens
+  ARGOCD_APPLICATION: vayulens-gcp
+  ARGOCD_NAMESPACE: argocd
+  DEPLOYMENT_FILE: deploy/k8s/deployment.yaml
+  GKE_CLUSTER_NAME: ${{ vars.GKE_CLUSTER_NAME || 'loksetu' }}
+  PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'project-72558650-faf6-4529-a05' }}
+  REGION: ${{ vars.GCP_REGION || 'us-east4' }}
+
+jobs:
+  validate:
+    name: Validate static app
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message || '', '[skip cd]') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check JavaScript
+        run: npm run check
+
+      - name: Test core logic
+        run: npm test
+
+      - name: Build container smoke
+        run: docker build -t "${APP_NAME}:ci" .
+
+  deploy:
+    name: Build image, update GitOps, and refresh Argo
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          install_components: kubectl,gke-gcloud-auth-plugin
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      - name: Compute image tag
+        run: echo "IMAGE_TAG=gcp-$(date -u +%Y%m%d%H%M%S)-${GITHUB_SHA::7}-amd64" >> "$GITHUB_ENV"
+
+      - name: Build and push image
+        run: |
+          image="${REGION}-docker.pkg.dev/${PROJECT_ID}/people-priority/${APP_NAME}:${IMAGE_TAG}"
+          docker build -t "${image}" .
+          docker push "${image}"
+          echo "IMAGE=${image}" >> "$GITHUB_ENV"
+
+      - name: Update Kubernetes image tag
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+
+          const file = process.env.DEPLOYMENT_FILE;
+          const image = process.env.IMAGE;
+          const appName = process.env.APP_NAME;
+          const text = fs.readFileSync(file, "utf8");
+          fs.writeFileSync(
+            file,
+            text.replace(
+              new RegExp(`image: us-east4-docker\\.pkg\\.dev/project-72558650-faf6-4529-a05/people-priority/${appName}:\\S+`),
+              `image: ${image}`,
+            ),
+          );
+          NODE
+
+      - name: Commit GitOps image update
+        run: |
+          if git diff --quiet "${DEPLOYMENT_FILE}"; then
+            echo "No deployment image change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${DEPLOYMENT_FILE}"
+          git commit -m "Deploy VayuLens ${IMAGE_TAG} [skip cd]"
+          echo "DEPLOY_REVISION=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git push origin HEAD:main
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials "${GKE_CLUSTER_NAME}" \
+            --region "${REGION}" \
+            --project "${PROJECT_ID}"
+
+      - name: Refresh Argo application
+        run: |
+          kubectl -n "${ARGOCD_NAMESPACE}" annotate application "${ARGOCD_APPLICATION}" \
+            argocd.argoproj.io/refresh=hard \
+            --overwrite
+          revision="${DEPLOY_REVISION:-$(git rev-parse HEAD)}"
+          for i in {1..60}; do
+            sync_status="$(kubectl -n "${ARGOCD_NAMESPACE}" get application "${ARGOCD_APPLICATION}" -o jsonpath='{.status.sync.status}' 2>/dev/null || true)"
+            health_status="$(kubectl -n "${ARGOCD_NAMESPACE}" get application "${ARGOCD_APPLICATION}" -o jsonpath='{.status.health.status}' 2>/dev/null || true)"
+            observed_revision="$(kubectl -n "${ARGOCD_NAMESPACE}" get application "${ARGOCD_APPLICATION}" -o jsonpath='{.status.sync.revision}' 2>/dev/null || true)"
+            echo "sync=${sync_status} health=${health_status} revision=${observed_revision}"
+            if [ "${sync_status}" = "Synced" ] && [ "${health_status}" = "Healthy" ] && [ "${observed_revision}" = "${revision}" ]; then
+              exit 0
+            fi
+            sleep 10
+          done
+          kubectl -n "${ARGOCD_NAMESPACE}" get application "${ARGOCD_APPLICATION}" -o yaml
+          exit 1

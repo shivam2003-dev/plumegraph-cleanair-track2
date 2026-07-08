@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vayulens-gcp
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shivam2003-dev/plumegraph-cleanair-track2.git
+    targetRevision: main
+    path: deploy/k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vayulens
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

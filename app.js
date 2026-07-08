@@ -200,7 +200,7 @@ function setHotspotCells(stage) {
 }
 
 function calculateConfidence() {
-  return window.PlumeGraphCore.calculateConfidence({
+  return window.VayuLensCore.calculateConfidence({
     ...state,
     correctedPm25: state.sensor ? 212 : state.correctedPm25,
     windConsistent: state.report && state.sensor,
@@ -208,7 +208,7 @@ function calculateConfidence() {
 }
 
 function currentStage() {
-  return window.PlumeGraphCore.classifyStage({
+  return window.VayuLensCore.classifyStage({
     ...state,
     correctedPm25: state.sensor ? 212 : state.correctedPm25,
     windConsistent: state.report && state.sensor,

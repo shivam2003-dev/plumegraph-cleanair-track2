@@ -2,7 +2,7 @@
   "name": "plumegraph-cleanair-track2",
   "version": "0.2.0",
   "private": true,
-  "description": "PlumeGraph hyperlocal pollution response prototype",
+  "description": "VayuLens hyperlocal pollution response prototype",
   "scripts": {
     "generate:ai": "node scripts/generate-ai-insights.mjs",
     "test": "node --test tests/*.test.js",

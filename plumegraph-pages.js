@@ -1,5 +1,5 @@
 (function initPages() {
-  const core = window.PlumeGraphCore;
+  const core = window.VayuLensCore;
   const scenario = {
     report: true,
     sensor: true,
@@ -118,7 +118,7 @@
   function initGoogleMap() {
     const mapEl = document.querySelector("#googleMap");
     if (!mapEl) return;
-    const key = window.PLUMEGRAPH_GOOGLE_MAPS_KEY || sessionStorage.getItem("plumegraphGoogleMapsKey");
+    const key = window.VAYULENS_GOOGLE_MAPS_KEY || sessionStorage.getItem("plumegraphGoogleMapsKey");
     const keyInput = document.querySelector("#mapsKeyInput");
     const keyButton = document.querySelector("#mapsKeyButton");
 

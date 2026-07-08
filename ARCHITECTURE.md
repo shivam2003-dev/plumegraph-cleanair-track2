@@ -1,4 +1,4 @@
-# PlumeGraph Architecture
+# VayuLens Architecture
 
 ## System Diagram
 

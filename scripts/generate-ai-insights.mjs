@@ -62,7 +62,7 @@ async function main() {
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "https://shivam2003-dev.github.io/plumegraph-cleanair-track2/",
-        "X-OpenRouter-Title": "PlumeGraph CleanAir Enterprise Demo",
+        "X-OpenRouter-Title": "VayuLens CleanAir Enterprise Demo",
       },
       body: JSON.stringify({
         model: process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini",

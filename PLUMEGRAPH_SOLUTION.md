@@ -1,4 +1,4 @@
-# PlumeGraph: CleanAir & Clear Streets Hackathon Solution
+# VayuLens: CleanAir & Clear Streets Hackathon Solution
 
 ## 1. Generic Solutions To Design Against
 
@@ -10,7 +10,7 @@ These are the five obvious ideas many teams will submit:
 4. AQI forecasting dashboard using historical AQI + weather in an LSTM.
 5. Municipal alert app that sends SMS/WhatsApp when AQI crosses a threshold.
 
-PlumeGraph is intentionally different on at least three axes:
+VayuLens is intentionally different on at least three axes:
 
 - From map to action: it recommends which municipal asset should go where, tracks SLA, and proves whether the intervention worked.
 - From reports to evidence graph: every hotspot requires cross-source corroboration from image physics, sensor anomaly, satellite/fire prior, wind direction, and reporter trust.
@@ -18,9 +18,9 @@ PlumeGraph is intentionally different on at least three axes:
 
 ## 2. Three Novel Concepts
 
-### Concept A: PlumeGraph
+### Concept A: VayuLens
 
-PlumeGraph is a graph-based municipal command layer where every road segment, junction, dump site, industrial pocket, ward, and 100 m grid cell becomes a node. Citizen photos, low-cost sensors, satellite fire/AOD/NO2, weather, and municipal assets update node risk in near real time.
+VayuLens is a graph-based municipal command layer where every road segment, junction, dump site, industrial pocket, ward, and 100 m grid cell becomes a node. Citizen photos, low-cost sensors, satellite fire/AOD/NO2, weather, and municipal assets update node risk in near real time.
 
 Unfair advantage: citizen photos become soft particulate sensors. Instead of only classifying smoke, the system estimates visual haze using dark-channel prior, sky brightness, contrast loss, EXIF timestamp/location, and comparison against expected clear-sky visibility.
 
@@ -38,7 +38,7 @@ Fuse Swachhata-style complaints, citizen photos, NASA FIRMS fire detections, win
 
 Unfair advantage: sanitation complaints are an early-warning signal. A garbage pile complaint today can become a smoke hotspot tomorrow.
 
-## 3. Chosen Concept: PlumeGraph
+## 3. Chosen Concept: VayuLens
 
 One-line idea: a neighbourhood pollution evidence graph that detects hidden hotspots, predicts 24-hour AQI spikes, dispatches municipal resources, and proves whether the intervention worked.
 
@@ -526,7 +526,7 @@ Hour 44-48:
 
 0:00-0:30
 
-City AQI is acceptable at the official station, but residents near this dump are breathing smoke. PlumeGraph detects the hidden hotspot before city-level AQI moves.
+City AQI is acceptable at the official station, but residents near this dump are breathing smoke. VayuLens detects the hidden hotspot before city-level AQI moves.
 
 0:30-1:10
 
@@ -550,7 +550,7 @@ Record after-reading. PM2.5 falls, haze improves, SLA closes. This is not just a
 
 ## 11. One-Line Pitch
 
-PlumeGraph turns citizen photos, cheap sensors, satellite fire signals, and weather into an accountable neighbourhood pollution command system that detects hidden hotspots, predicts AQI spikes, dispatches crews, and proves the air improved.
+VayuLens turns citizen photos, cheap sensors, satellite fire signals, and weather into an accountable neighbourhood pollution command system that detects hidden hotspots, predicts AQI spikes, dispatches crews, and proves the air improved.
 
 ## 12. Demo Wow Moment
 

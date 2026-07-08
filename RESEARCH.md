@@ -1,8 +1,8 @@
-# PlumeGraph Research Notes
+# VayuLens Research Notes
 
 ## Design Principles
 
-PlumeGraph is not a generic heatmap. It uses a multi-evidence design because the literature consistently shows that each individual signal has limits:
+VayuLens is not a generic heatmap. It uses a multi-evidence design because the literature consistently shows that each individual signal has limits:
 
 - Low-cost sensors are useful for dense and mobile coverage but need calibration, humidity correction, co-location, and drift management.
 - Smartphone photos can estimate haze/PM-related visibility loss, but should be treated as soft evidence rather than regulatory truth.
@@ -28,4 +28,4 @@ The correct product architecture is an evidence graph and municipal proof loop:
 report + sensor + satellite/fire prior + wind plausibility -> confirmed hotspot -> dispatch -> before/after proof
 ```
 
-This is why PlumeGraph shows confidence and provenance instead of pretending every source is equally reliable.
+This is why VayuLens shows confidence and provenance instead of pretending every source is equally reliable.

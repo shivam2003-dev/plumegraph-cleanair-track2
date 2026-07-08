@@ -1,8 +1,8 @@
-# PlumeGraph Build Phases
+# VayuLens Build Phases
 
 ## Current Status
 
-PlumeGraph has cleared the initial selection round. The next goal is to turn the selected prototype into a credible end-to-end civic product demo that judges can inspect page by page.
+VayuLens has cleared the initial selection round. The next goal is to turn the selected prototype into a credible end-to-end civic product demo that judges can inspect page by page.
 
 Important security note: no private API key is committed to this repo or exposed in GitHub Pages. AI calls must go through a backend proxy or local environment variable.
 
@@ -128,7 +128,7 @@ Pilot metrics:
 
 Status: completed in the static enterprise demo
 
-Goal: make PlumeGraph feel like a municipal SaaS that can be evaluated by a commissioner, ICCC operator, ward officer, and technical integration team.
+Goal: make VayuLens feel like a municipal SaaS that can be evaluated by a commissioner, ICCC operator, ward officer, and technical integration team.
 
 Delivered:
 

@@ -1,8 +1,8 @@
-(function initPlumeGraphCore(root, factory) {
+(function initVayuLensCore(root, factory) {
   if (typeof module === "object" && module.exports) {
     module.exports = factory();
   } else {
-    root.PlumeGraphCore = factory();
+    root.VayuLensCore = factory();
   }
 })(typeof globalThis !== "undefined" ? globalThis : this, function buildCore() {
   const STAGES = {

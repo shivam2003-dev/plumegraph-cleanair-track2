@@ -1,8 +1,8 @@
-# PlumeGraph
+# VayuLens
 
 Neighbourhood-level pollution intelligence for Code for Communities, Track 2: CleanAir & Clear Streets.
 
-PlumeGraph combines citizen photo evidence, low-cost PM sensors, satellite fire/AOD priors, weather, and municipal assets into an operational dashboard. The demo shows a hidden dump-fire hotspot moving from Watch to Confirmed, predicts the 24-hour AQI spike, dispatches municipal resources, and records before/after proof that the intervention worked.
+VayuLens combines citizen photo evidence, low-cost PM sensors, satellite fire/AOD priors, weather, and municipal assets into an operational dashboard. The demo shows a hidden dump-fire hotspot moving from Watch to Confirmed, predicts the 24-hour AQI spike, dispatches municipal resources, and records before/after proof that the intervention worked.
 
 ## Run Locally
 
@@ -48,7 +48,7 @@ main branch -> GitHub Actions -> upload-pages-artifact -> deploy-pages -> GitHub
 Live URL:
 
 ```text
-https://shivam2003-dev.github.io/plumegraph-cleanair-track2/
+https://vayulens.shivam2003.com/
 ```
 
 Submission pages:
